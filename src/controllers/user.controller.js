@@ -5,7 +5,7 @@ function UserController() {
     return res.send(req.user);
   };
 
-  this.signup = (req, res) => {
+  this.register = (req, res) => {
     try {
       let user = new User();
 
