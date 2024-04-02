@@ -21,8 +21,9 @@ const ProductSchema = new mongoose.Schema(
       min: [0, "must be at least 0"],
     },
     category: {
-      type: String,
-      required: [true, "can't be blank"],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
     },
     image: String,
   },

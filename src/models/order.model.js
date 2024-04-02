@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema(
   {
-    customer: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: [true, "can't be blank"],
@@ -37,8 +37,8 @@ const OrderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Pending", "Processing", "Shipped", "Delivered"],
-      default: "Pending",
+      enum: ["PENDING", "PROCESSING", "SHIPPED", "DELIVERED"],
+      default: "PENDING",
     },
   },
   { timestamps: true }
