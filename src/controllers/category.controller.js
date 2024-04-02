@@ -65,6 +65,8 @@ function CategoryController() {
       res.status(400).json({ error: error.message });
     }
   };
+
+  return this;
 }
 
 module.exports = CategoryController();
