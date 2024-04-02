@@ -4,21 +4,28 @@ const Product = require("../models/product.model");
 function OrderController() {
   this.create = async (req, res) => {
     try {
-      const { userId, products, shippingAddress } = req.body;
+      const { products, shippingAddress } = req.body;
+      const userId = req.user._id;
 
       let total = 0;
+      const orderProducts = [];
+
       for (const item of products) {
         const product = await Product.findById(item.productId);
+        if (!product) {
+          return res.status(404).json({ message: "Not Found!" });
+        }
         total += product.price * item.quantity;
+        orderProducts.push({
+          product: item.productId,
+          quantity: item.quantity,
+          price: product.price,
+        });
       }
 
       const order = new Order({
         user: userId,
-        products: products.map((item) => ({
-          product: item.productId,
-          quantity: item.quantity,
-          price: item.price,
-        })),
+        products: orderProducts,
         total,
         shippingAddress,
         status: "PENDING",
@@ -28,11 +35,13 @@ function OrderController() {
 
       for (const item of products) {
         const product = await Product.findById(item.productId);
-        product.quantity -= item.quantity;
-        await product.save();
+        if (product) {
+          product.quantity -= item.quantity;
+          await product.save();
+        }
       }
 
-      res.status(201).json({ message: "Order successfully" });
+      res.status(201).json({ message: "Order created successfully" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error" });
