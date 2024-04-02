@@ -23,6 +23,11 @@ const UserSchema = new mongoose.Schema(
       required: true,
       minLength: 7,
     },
+    role: {
+      type: String,
+      enum: ["ADMIN", "USER"],
+      default: "USER",
+    },
     tokens: [
       {
         token: {
@@ -47,6 +52,7 @@ UserSchema.methods.toAuthJSON = function () {
   return {
     username: this.username,
     email: this.email,
+    role: this.role,
     token: this.generateAuthToken(),
   };
 };
