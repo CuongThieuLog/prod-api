@@ -16,7 +16,7 @@ const adminAuth = async (req, res, next) => {
 
     next();
   } catch (error) {
-    res.status(401).send({
+    res.status(403).json({
       error: "Not authorized to access this resource",
       message: error.message,
     });
