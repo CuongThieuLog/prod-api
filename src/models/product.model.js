@@ -20,7 +20,7 @@ const ProductSchema = new mongoose.Schema(
       required: [true, "can't be blank"],
       min: [0, "must be at least 0"],
     },
-    category: {
+    categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: true,

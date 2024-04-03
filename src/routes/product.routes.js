@@ -8,5 +8,10 @@ router.post("/", auth, ProductController.create);
 router.get("/:id", auth, ProductController.getById);
 router.put("/:id", auth, ProductController.update);
 router.delete("/:id", auth, ProductController.getById);
+router.get(
+  "/remaining-quantity/:id",
+  auth,
+  ProductController.getRemainingQuantity
+);
 
 module.exports = router;

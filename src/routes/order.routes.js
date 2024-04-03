@@ -4,5 +4,7 @@ const auth = require("../middleware/auth.middleware");
 
 //private
 router.post("/", auth, OrderController.create);
+router.get("/user/:id", auth, OrderController.getAllOrdersForCurrentUser);
+router.put("/update-status/:id", auth, OrderController.updateOrderStatus);
 
 module.exports = router;

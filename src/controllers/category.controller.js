@@ -1,6 +1,7 @@
 const Category = require("../models/category.model");
 
 function CategoryController() {
+  // Admin
   this.create = async (req, res) => {
     try {
       const { name, description } = req.body;
@@ -12,6 +13,7 @@ function CategoryController() {
     }
   };
 
+  // Admin
   this.getAll = async (req, res) => {
     try {
       const categories = await Category.find();
@@ -21,6 +23,7 @@ function CategoryController() {
     }
   };
 
+  // Admin
   this.getById = async (req, res) => {
     try {
       const category = await Category.findById(req.params.id);
@@ -33,6 +36,7 @@ function CategoryController() {
     }
   };
 
+  // Admin
   this.update = async (req, res) => {
     try {
       const { name, description } = req.body;
@@ -52,6 +56,7 @@ function CategoryController() {
     }
   };
 
+  // Admin
   this.delete = async (req, res) => {
     try {
       const deletedCategory = await Category.findByIdAndDelete(req.params.id);
