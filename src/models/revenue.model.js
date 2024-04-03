@@ -2,23 +2,23 @@ const mongoose = require("mongoose");
 
 const RevenueSchema = new mongoose.Schema(
   {
-    date: {
-      type: Date,
+    order: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
       required: [true, "can't be blank"],
-      unique: true,
     },
-    totalIncome: {
-      type: Number,
-      required: [true, "can't be blank"],
-      min: [0, "must be at least 0"],
-    },
-    totalExpense: {
+    revenue: {
       type: Number,
       required: [true, "can't be blank"],
       min: [0, "must be at least 0"],
     },
     profit: {
       type: Number,
+      required: [true, "can't be blank"],
+      min: [0, "must be at least 0"],
+    },
+    date: {
+      type: Date,
       required: [true, "can't be blank"],
     },
   },

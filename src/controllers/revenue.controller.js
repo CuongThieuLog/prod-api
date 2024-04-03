@@ -1,17 +1,47 @@
-const Revenue = require("../models/revenue.model");
 const Order = require("../models/order.model");
 const Product = require("../models/product.model");
 
 function RevenueController() {
-  //Tổng lợi nhuận
-  this.calculateTotalProfit = async (req, res) => {};
+  // Tính tổng doanh thu
+  this.calculateTotalProfit = async (req, res) => {
+    try {
+      const orders = await Order.find({ status: "DELIVERED" });
+      let totalRevenue = 0;
 
-  //Tổng thu nhập
-  this.calculateTotalIncome = async (req, res) => {};
+      for (const order of orders) {
+        for (const item of order.products) {
+          const product = await Product.findById(item.product);
+          totalRevenue += item.quantity * product.price;
+        }
+      }
 
-  //Tổng chi phí
-  this.calculateTotalExpense = async (req, res) => {};
+      res.status(200).json({ totalRevenue });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  // Tính tổng lợi nhuận
+  this.calculateTotalIncome = async (req, res) => {
+    try {
+      const orders = await Order.find({ status: "DELIVERED" });
+      let totalProfit = 0;
+
+      for (const order of orders) {
+        for (const item of order.products) {
+          const product = await Product.findById(item.product);
+          totalProfit +=
+            item.quantity * product.price - item.quantity * product.cost;
+        }
+      }
+
+      res.status(200).json({ totalProfit });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
   return this;
 }
 
-module.exports = RevenueController();
+module.exports = new RevenueController();

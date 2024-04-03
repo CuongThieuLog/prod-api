@@ -4,21 +4,26 @@ const ProductSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "can't be blank"],
+      required: [true, "Name can't be blank"],
     },
     description: {
       type: String,
-      required: [true, "can't be blank"],
+      required: [true, "Description can't be blank"],
     },
     price: {
       type: Number,
-      required: [true, "can't be blank"],
-      min: [0, "must be at least 0"],
+      required: [true, "Price can't be blank"],
+      min: [0, "Price must be at least 0"],
+    },
+    cost: {
+      type: Number,
+      required: [true, "Cost can't be blank"],
+      min: [0, "Cost must be at least 0"],
     },
     quantity: {
       type: Number,
-      required: [true, "can't be blank"],
-      min: [0, "must be at least 0"],
+      required: [true, "Quantity can't be blank"],
+      min: [0, "Quantity must be at least 0"],
     },
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,

@@ -5,12 +5,13 @@ function ProductController() {
   // Admin
   this.create = async (req, res) => {
     try {
-      const { name, description, price, quantity, categoryId, image } =
+      const { name, description, price, quantity, cost, categoryId, image } =
         req.body;
       const product = new Product({
         name,
         description,
         price,
+        cost,
         quantity,
         categoryId,
         image,
@@ -48,11 +49,11 @@ function ProductController() {
   // Admin
   this.update = async (req, res) => {
     try {
-      const { name, description, price, quantity, categoryId, image } =
+      const { name, description, price, quantity, cost, categoryId, image } =
         req.body;
       const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
-        { name, description, price, quantity, categoryId, image },
+        { name, description, price, quantity, cost, categoryId, image },
         { new: true }
       );
       if (!updatedProduct) {
